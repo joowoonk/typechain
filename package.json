@@ -1,0 +1,22 @@
+{
+  "name": "typechain",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joowoonk/typechain.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joowoonk/typechain/issues"
+  },
+  "homepage": "https://github.com/joowoonk/typechain#readme",
+  "dependencies": {
+    "typescript": "^4.3.5"
+  }
+}
