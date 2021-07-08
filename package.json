@@ -18,5 +18,9 @@
   "homepage": "https://github.com/joowoonk/typechain#readme",
   "dependencies": {
     "typescript": "^4.3.5"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "prestart": "tsc"
   }
 }
