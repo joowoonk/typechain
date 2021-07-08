@@ -15,6 +15,12 @@ class Block {
   ): string =>
     CryptoJS.SHA256(index + previousHash + timestamp + data).toString();
 
+  static validateStructure = (aBlock: Block): boolean =>
+    typeof aBlock.index === "number" &&
+    typeof aBlock.hash === "string" &&
+    typeof aBlock.previousHash === "string" && 
+    typeof aBlock.data === "string";
+
   constructor(
     index: number,
     hash: string,
@@ -38,12 +44,11 @@ let blockchain: Block[] = [genesisBlock];
 
 // console.log(blockchain);
 
-const getBlockchain = () : Block[] => blockchain
+const getBlockchain = (): Block[] => blockchain;
 
-const getLatestBlock = () : Block => blockchain[blockchain.length - 1];
+const getLatestBlock = (): Block => blockchain[blockchain.length - 1];
 
-const getNewTimeStamp = () : number => Math.round(new Date().getTime() / 1000)
-
+const getNewTimeStamp = (): number => Math.round(new Date().getTime() / 1000);
 
 const createNewBlock = (data: string): Block => {
   const previousBlock: Block = getLatestBlock();
@@ -65,6 +70,25 @@ const createNewBlock = (data: string): Block => {
   return newBlock;
 };
 
-console.log(createNewBlock("Hello"), createNewBlock("Bye"));
+// console.log(createNewBlock("Hello"), createNewBlock("Bye"));
+
+const getHashforBlock = (aBlock: Block) :string => Block.calculateBlockHash(aBlock.index, aBlock.previousHash, aBlock.timestamp, aBlock.data);
+
+const isBlockVliad = (
+  candidateBlock: Block,
+  previousBlock: Block
+): boolean => {
+    if(Block.validateStructure(candidateBlock)){
+        return false
+    }else if(previousBlock.index + 1 !== candidateBlock.index){
+        return false
+    } else if(previousBlock.hash !== candidateBlock.previousHash){
+        return false
+    } else if (getHashforBlock(candidateBlock) !== candidateBlock.hash) {
+        return false
+    } else {
+        return true
+    }
+};
 
 export {};
