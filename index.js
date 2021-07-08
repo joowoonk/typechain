@@ -11,11 +11,20 @@ class Block {
     }
 }
 Block.calculateBlockHash = (index, previousHash, timestamp, data) => CryptoJS.SHA256(index + previousHash + timestamp + data).toString();
-Block.calculateBlockHash();
+// Block.calculateBlockHash();
 const genesisBlock = new Block(0, "152313213213", "", "Hello", 213145);
 let blockchain = [genesisBlock];
 // console.log(blockchain);
 const getBlockchain = () => blockchain;
 const getLatestBlock = () => blockchain[blockchain.length - 1];
 const getNewTimeStamp = () => Math.round(new Date().getTime() / 1000);
+const createNewBlock = (data) => {
+    const previousBlock = getLatestBlock();
+    const newIndex = previousBlock.index + 1;
+    const newTimestamp = getNewTimeStamp();
+    const newHash = Block.calculateBlockHash(newIndex, previousBlock.hash, newTimestamp, data);
+    const newBlock = new Block(newIndex, newHash, previousBlock.hash, data, newTimestamp);
+    return newBlock;
+};
+console.log(createNewBlock("Hello"), createNewBlock("Bye"));
 //# sourceMappingURL=index.js.map
