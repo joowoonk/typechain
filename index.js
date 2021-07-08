@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const CryptoJS = require("crypto-js");
 class Block {
     constructor(index, hash, previousHash, data, timestamp) {
         this.index = index;
@@ -9,7 +10,12 @@ class Block {
         this.timestamp = timestamp;
     }
 }
+Block.calculateBlockHash = (index, previousHash, timestamp, data) => CryptoJS.SHA256(index + previousHash + timestamp + data).toString();
+Block.calculateBlockHash();
 const genesisBlock = new Block(0, "152313213213", "", "Hello", 213145);
 let blockchain = [genesisBlock];
-console.log(blockchain);
+// console.log(blockchain);
+const getBlockchain = () => blockchain;
+const getLatestBlock = () => blockchain[blockchain.length - 1];
+const getNewTimeStamp = () => Math.round(new Date().getTime() / 1000);
 //# sourceMappingURL=index.js.map
